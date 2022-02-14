@@ -13,3 +13,5 @@ dubbo:
   protocol:
     name: dubbo # dubbo 协议
     port: 20880 # 开放端口
+  consumer:
+    check: false
