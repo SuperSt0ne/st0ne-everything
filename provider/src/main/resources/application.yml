@@ -1,0 +1,17 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: provider
+
+dubbo:
+  application:
+    name: dubbo-provider # dubbo 上注册的服务名称
+  registry:
+    address: zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183
+  protocol:
+    name: dubbo # dubbo 协议
+    port: 20880 # 开放端口
+  scan:
+    base-packages: com.rango.provider.service.impl # 提供的服务
