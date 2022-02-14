@@ -1,4 +1,4 @@
-url: https://segmentfault.com/a/1190000006907443
+[参考](https://segmentfault.com/a/1190000006907443)
 
 因为一个一个地启动 ZK 太麻烦了, 所以为了方便起见, 我直接使用 docker-compose 来启动 ZK 集群.
 首先创建一个名为 docker-compose.yml 的文件, 其内容如下:
@@ -61,21 +61,24 @@ zoo3   /docker-entrypoint.sh zkSe ...   Up      0.0.0.0:2183->2181/tcp
 通过 docker-compose ps 命令, 我们知道启动的 ZK 集群的三个主机名分别是 zoo1, zoo2, zoo3, 因此我们分别 link 它们即可:
 
 
+```
 docker run -it --rm \
         --link zoo1:zk1 \
         --link zoo2:zk2 \
         --link zoo3:zk3 \
         --net zktest_default \
         zookeeper zkCli.sh -server zk1:2181,zk2:2181,zk3:2181
+```
 
 通过本地主机连接 ZK 集群
 因为我们分别将 zoo1, zoo2, zoo3 的 2181 端口映射到了 本地主机的2181, 2182, 2183 端口上, 因此我们使用如下命令即可连接 ZK 集群了:
 
-zkCli.sh -server localhost:2181,localhost:2182,localhost:2183
+`zkCli.sh -server localhost:2181,localhost:2182,localhost:2183`
 查看集群
 我们可以通过 nc 命令连接到指定的 ZK 服务器, 然后发送 stat 可以查看 ZK 服务的状态, 例如:
 
->>> echo stat | nc 127.0.0.1 2181
+`echo stat | nc 127.0.0.1 2181`
+
 Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMT
 Clients:
  /172.18.0.1:49810[0](queued=0,recved=1,sent=0)
@@ -88,7 +91,9 @@ Outstanding: 0
 Zxid: 0x200000002
 Mode: follower
 Node count: 4
->>> echo stat | nc 127.0.0.1 2182
+
+`echo stat | nc 127.0.0.1 2182`
+
 Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMT
 Clients:
  /172.18.0.1:50870[0](queued=0,recved=1,sent=0)
@@ -101,7 +106,9 @@ Outstanding: 0
 Zxid: 0x200000002
 Mode: follower
 Node count: 4
->>> echo stat | nc 127.0.0.1 2183
+
+`echo stat | nc 127.0.0.1 2183`
+
 Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMT
 Clients:
  /172.18.0.1:51820[0](queued=0,recved=1,sent=0)
