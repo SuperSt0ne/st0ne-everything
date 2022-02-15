@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 @Component
 public class ZkDistributedLock implements DistributeLock, InitializingBean {
 
-    private final static String ROOT_PATH_LOCK = "zk-lock";
+    private final static String ROOT_PATH_LOCK = "root";
 
     private CuratorFramework curatorFramework = ZkUtil.getInstance();
 
@@ -24,7 +24,7 @@ public class ZkDistributedLock implements DistributeLock, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        curatorFramework = curatorFramework.usingNamespace("lock-namespace");
+        curatorFramework = curatorFramework.usingNamespace("lock");
         String path = "/" + ROOT_PATH_LOCK;
         try {
             if (curatorFramework.checkExists().forPath(path) == null) {
