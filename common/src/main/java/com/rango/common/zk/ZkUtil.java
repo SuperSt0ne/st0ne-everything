@@ -7,6 +7,12 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 public class ZkUtil {
 
+    public static final String MESSAGE_ROOT_PATH = "/message";
+
+    public static final String LOCK_NAMESPACE_PATH = "lock";
+
+    public static final String LOCK_ROOT_PATH = "root";
+
     private static final int BASE_SLEEP_TIME = 1000;
 
     //Retry strategy. Retry 3 times, and will increase the sleep time between retries.

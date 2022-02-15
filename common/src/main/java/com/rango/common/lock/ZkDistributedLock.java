@@ -16,16 +16,14 @@ import java.util.concurrent.CountDownLatch;
 @Component
 public class ZkDistributedLock implements DistributeLock, InitializingBean {
 
-    private final static String ROOT_PATH_LOCK = "root";
-
     private CuratorFramework curatorFramework = ZkUtil.getInstance();
 
     private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     @Override
     public void afterPropertiesSet() {
-        curatorFramework = curatorFramework.usingNamespace("lock");
-        String path = "/" + ROOT_PATH_LOCK;
+        curatorFramework = curatorFramework.usingNamespace(ZkUtil.LOCK_NAMESPACE_PATH);
+        String path = "/" + ZkUtil.LOCK_ROOT_PATH;
         try {
             if (curatorFramework.checkExists().forPath(path) == null) {
                 curatorFramework
@@ -35,7 +33,7 @@ public class ZkDistributedLock implements DistributeLock, InitializingBean {
                         .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
                         .forPath(path);
             }
-            addWatcher(ROOT_PATH_LOCK);
+            addWatcher(ZkUtil.LOCK_ROOT_PATH);
             log.info("root path 的 watcher 事件创建成功");
         } catch (Exception e) {
             log.error("connect zookeeper fail，please check the log >> {}", e.getMessage(), e);
@@ -47,10 +45,10 @@ public class ZkDistributedLock implements DistributeLock, InitializingBean {
      */
     private void addWatcher(String path) throws Exception {
         String keyPath;
-        if (path.equals(ROOT_PATH_LOCK)) {
+        if (path.equals(ZkUtil.LOCK_ROOT_PATH)) {
             keyPath = "/" + path;
         } else {
-            keyPath = "/" + ROOT_PATH_LOCK + "/" + path;
+            keyPath = "/" + ZkUtil.LOCK_ROOT_PATH + "/" + path;
         }
 
         final PathChildrenCache cache = new PathChildrenCache(curatorFramework, keyPath, false);
@@ -77,7 +75,7 @@ public class ZkDistributedLock implements DistributeLock, InitializingBean {
      */
     @Override
     public void acquireLock(String path) {
-        String keyPath = "/" + ROOT_PATH_LOCK + "/" + path;
+        String keyPath = "/" + ZkUtil.LOCK_NAMESPACE_PATH + "/" + path;
         while (true) {
             try {
                 curatorFramework
@@ -111,7 +109,7 @@ public class ZkDistributedLock implements DistributeLock, InitializingBean {
 
     @Override
     public boolean releaseLock(String path) {
-        String keyPath = "/" + ROOT_PATH_LOCK + "/" + path;
+        String keyPath = "/" + ZkUtil.LOCK_NAMESPACE_PATH + "/" + path;
         try {
             if (curatorFramework.checkExists().forPath(keyPath) != null) {
                 curatorFramework.delete().forPath(keyPath);
