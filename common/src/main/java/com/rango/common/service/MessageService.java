@@ -1,8 +1,8 @@
 package com.rango.common.service;
 
-import com.rango.common.dto.Message;
+import com.rango.common.dto.MessageDTO;
 
 public interface MessageService {
 
-    Message getMsg(Long userName);
+    MessageDTO getMsg(Long userName);
 }

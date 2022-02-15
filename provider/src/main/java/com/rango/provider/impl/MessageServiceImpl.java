@@ -1,6 +1,6 @@
 package com.rango.provider.impl;
 
-import com.rango.common.dto.Message;
+import com.rango.common.dto.MessageDTO;
 import com.rango.common.service.MessageService;
 import org.apache.dubbo.config.annotation.DubboService;
 
@@ -10,11 +10,11 @@ import java.util.Date;
 public class MessageServiceImpl implements MessageService {
 
     @Override
-    public Message getMsg(Long userId) {
-        return Message.builder()
+    public MessageDTO getMsg(Long userId) {
+        return MessageDTO.builder()
                 .id(1L)
                 .content("hello world")
-                .type(Message.NORMAL)
+                .type(MessageDTO.NORMAL)
                 .sendUserId(userId)
                 .sendTime(new Date())
                 .build();

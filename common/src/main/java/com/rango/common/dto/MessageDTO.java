@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Builder
-public class Message implements Serializable {
+public class MessageDTO implements Serializable {
 
     private static final long serialVersionUID = 1520852149309183485L;
 

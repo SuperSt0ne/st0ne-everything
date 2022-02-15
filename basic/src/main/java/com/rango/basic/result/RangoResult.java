@@ -1,4 +1,4 @@
-package com.rango.common.dto;
+package com.rango.basic.result;
 
 import lombok.Data;
 
