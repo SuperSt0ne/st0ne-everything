@@ -3,9 +3,10 @@ package com.rango.provider.controller;
 import com.rango.basic.result.RangoResult;
 import com.rango.common.dto.MessageDTO;
 import com.rango.common.lock.DistributeLock;
+import com.rango.common.redis.RangoRedisService;
 import com.rango.common.service.MessageService;
 import com.rango.common.wheel.MessageCenter;
-import com.rango.common.wheel.ZkMessageCenter;
+import lombok.extern.log4j.Log4j2;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
+@Log4j2
 @RestController
 public class CommonController {
 
@@ -25,6 +27,9 @@ public class CommonController {
 
     @Autowired
     private MessageCenter zkMessageCenter;
+
+    @Autowired
+    private RangoRedisService rangoRedisService;
 
     @GetMapping("/getUser")
     public RangoResult<MessageDTO> user(Long userId) {
@@ -72,6 +77,14 @@ public class CommonController {
         zkMessageCenter.sendMessage(path, message);
         System.out.println(path);
         result.setStatus(Boolean.TRUE);
+        return result;
+    }
+
+    @GetMapping("/redis/{key}/{val}")
+    public RangoResult<Boolean> setRedis(@PathVariable("key") String key, @PathVariable("val") String val) {
+        RangoResult<Boolean> result = new RangoResult<>();
+        result.setStatus(rangoRedisService.set(key, val));
+        log.error("controller do biz");
         return result;
     }
 }

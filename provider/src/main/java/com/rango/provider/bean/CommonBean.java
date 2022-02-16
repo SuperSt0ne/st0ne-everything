@@ -1,5 +1,7 @@
 package com.rango.provider.bean;
 
+import com.rango.common.interceptor.RangoLogInterceptor;
+import com.rango.common.config.service.RangoServiceAppConfig;
 import com.rango.common.lock.ZkDistributedLock;
 import com.rango.common.wheel.ZkMessageCenter;
 import org.springframework.context.annotation.Bean;
@@ -29,5 +31,15 @@ public class CommonBean {
         ZkMessageCenter zkMessageCenter = new ZkMessageCenter();
         zkMessageCenter.setTaskExecutor(threadPoolTaskExecutor());
         return zkMessageCenter;
+    }
+
+    @Bean
+    public RangoLogInterceptor rangoInterceptor() {
+        return new RangoLogInterceptor();
+    }
+
+    @Bean
+    public RangoServiceAppConfig rangoServiceInterceptorConfig() {
+        return new RangoServiceAppConfig();
     }
 }
