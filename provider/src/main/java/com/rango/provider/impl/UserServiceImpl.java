@@ -22,6 +22,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserById(Long id) {
         return BeanCopy.doConvertDto(userMapper.getUserById(id), UserDTO.class);
-//        return userMapper.getUserById(id);
     }
 }
