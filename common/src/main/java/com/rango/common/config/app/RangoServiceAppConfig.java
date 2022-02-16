@@ -1,4 +1,4 @@
-package com.rango.common.config.service;
+package com.rango.common.config.app;
 
 import com.rango.common.interceptor.RangoLogInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;

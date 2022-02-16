@@ -1,6 +1,6 @@
 package com.rango.consumer.controller;
 
-import com.rango.common.annotation.CatchMessage;
+import com.rango.basic.annotation.CatchMessage;
 import com.rango.common.dto.MessageDTO;
 import com.rango.common.lock.DistributeLock;
 import com.rango.common.service.MessageService;

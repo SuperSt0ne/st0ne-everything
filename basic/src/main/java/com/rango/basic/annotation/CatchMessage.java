@@ -1,4 +1,4 @@
-package com.rango.common.annotation;
+package com.rango.basic.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

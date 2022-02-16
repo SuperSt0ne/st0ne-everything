@@ -1,7 +1,7 @@
 package com.rango.common.wheel;
 
 import com.alibaba.fastjson.JSON;
-import com.rango.common.annotation.CatchMessage;
+import com.rango.basic.annotation.CatchMessage;
 import com.rango.common.dto.MessageDTO;
 import com.rango.common.zk.ZkUtil;
 import lombok.extern.log4j.Log4j2;
