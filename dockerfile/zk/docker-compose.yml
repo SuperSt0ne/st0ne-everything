@@ -1,4 +1,4 @@
-version: '2'
+version: '3.1'
 services:
   super_zoo_1:
     image: zookeeper
@@ -9,7 +9,10 @@ services:
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=super_zoo_1:2888:3888;2181 server.2=super_zoo_2:2888:3888;2181 server.3=super_zoo_3:2888:3888;2181
-
+    volumes:
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_1/data:/data
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_1/datalog:/datalog
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_1/conf:/conf
   super_zoo_2:
     image: zookeeper
     restart: always
@@ -19,7 +22,10 @@ services:
     environment:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=super_zoo_1:2888:3888;2181 server.2=super_zoo_2:2888:3888;2181 server.3=super_zoo_3:2888:3888;2181
-
+    volumes:
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_2/data:/data
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_2/datalog:/datalog
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_3/conf:/conf
   super_zoo_3:
     image: zookeeper
     restart: always
@@ -29,3 +35,7 @@ services:
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=super_zoo_1:2888:3888;2181 server.2=super_zoo_2:2888:3888;2181 server.3=super_zoo_3:2888:3888;2181
+    volumes:
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_3/data:/data
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_3/datalog:/datalog
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_3/conf:/conf

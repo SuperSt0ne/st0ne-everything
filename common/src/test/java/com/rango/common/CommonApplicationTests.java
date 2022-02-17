@@ -1,12 +1,12 @@
 package com.rango.common;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class CommonApplicationTests {
 
-    @Test
+//    @Test
     void contextLoads() {
     }
 

@@ -87,4 +87,12 @@ public class CommonController {
         log.error("controller do biz");
         return result;
     }
+
+    @GetMapping("/redis")
+    public RangoResult<Boolean> redis() {
+        RangoResult<Boolean> result = new RangoResult<>();
+        log.error("完成业务");
+        result.setStatus(Boolean.TRUE);
+        return result;
+    }
 }

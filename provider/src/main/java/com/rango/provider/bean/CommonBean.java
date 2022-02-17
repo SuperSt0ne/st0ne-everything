@@ -2,6 +2,8 @@ package com.rango.provider.bean;
 
 import com.rango.common.interceptor.RangoLogInterceptor;
 import com.rango.common.config.app.RangoServiceAppConfig;
+import com.rango.common.interceptor.RangoRateLimitInterceptor;
+import com.rango.common.limit.SemaphoreRateLimit;
 import com.rango.common.lock.ZkDistributedLock;
 import com.rango.common.wheel.ZkMessageCenter;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +41,19 @@ public class CommonBean {
     }
 
     @Bean
+    public RangoRateLimitInterceptor rangoRateLimitInterceptor() {
+        RangoRateLimitInterceptor rangoRateLimitInterceptor = new RangoRateLimitInterceptor();
+        rangoRateLimitInterceptor.setSemaphoreRateLimit(semaphoreRateLimit());
+        return rangoRateLimitInterceptor;
+    }
+
+    @Bean
     public RangoServiceAppConfig rangoServiceInterceptorConfig() {
         return new RangoServiceAppConfig();
+    }
+
+    @Bean
+    public SemaphoreRateLimit semaphoreRateLimit() {
+        return new SemaphoreRateLimit();
     }
 }
