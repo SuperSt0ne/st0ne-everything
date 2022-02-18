@@ -15,3 +15,4 @@ ZkMessageCenter/ZkMessageListener 基于zk实现的分布式消息广播
 
 RangoRedisService 基于spring-data-redis redisTemplate实现的redis工具类
 
+SemaphoreRateLimit 基于semaphore信号量在拦截器中实现的限流策略
