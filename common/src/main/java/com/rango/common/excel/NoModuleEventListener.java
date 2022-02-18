@@ -3,8 +3,8 @@ package com.rango.common.excel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelAnalysisException;
-import com.yunti.bteam.dto.excel.base.ExcelRowDTO;
-import com.yunti.bteam.dto.excel.base.NoModuleRowDTO;
+import com.rango.common.dto.excel.base.ExcelRowDTO;
+import com.rango.common.dto.excel.base.NoModuleRowDTO;
 import lombok.Getter;
 
 import java.util.ArrayList;
