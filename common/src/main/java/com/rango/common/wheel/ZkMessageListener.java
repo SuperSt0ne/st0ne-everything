@@ -47,7 +47,8 @@ public class ZkMessageListener implements BeanPostProcessor, InitializingBean {
     public ZkMessageListener() {
         CuratorFramework client = ZkUtil.getInstance();
         try {
-            client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(ZkUtil.MESSAGE_ROOT_PATH, new byte[0]);
+            //zk /conf/zoo.csf 需要添加配置 extendedTypesEnabled=true 才支持创建持久的ttl节点
+            client.create().orSetData().withTtl(60 * 1000).withMode(CreateMode.PERSISTENT_WITH_TTL).forPath(ZkUtil.MESSAGE_ROOT_PATH, new byte[0]);
         } catch (KeeperException.NodeExistsException e) {
             // ignore
         } catch (Exception e) {

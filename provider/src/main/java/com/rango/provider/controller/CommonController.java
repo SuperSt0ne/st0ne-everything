@@ -92,6 +92,11 @@ public class CommonController {
     public RangoResult<Boolean> redis() {
         RangoResult<Boolean> result = new RangoResult<>();
         log.error("完成业务");
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         result.setStatus(Boolean.TRUE);
         return result;
     }

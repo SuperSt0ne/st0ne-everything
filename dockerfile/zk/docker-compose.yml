@@ -25,7 +25,7 @@ services:
     volumes:
       - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_2/data:/data
       - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_2/datalog:/datalog
-      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_3/conf:/conf
+      - /Users/stone/Documents/learn/docker/volumeData/zk/super_zoo_2/conf:/conf
   super_zoo_3:
     image: zookeeper
     restart: always

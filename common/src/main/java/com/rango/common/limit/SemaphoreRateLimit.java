@@ -1,10 +1,8 @@
 package com.rango.common.limit;
 
 import com.rango.basic.common.CommonConstant;
-import com.rango.basic.exception.RangoException;
 import com.rango.common.dto.AppConfDTO;
 import com.rango.common.service.AppConfService;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,7 +22,7 @@ public class SemaphoreRateLimit implements InitializingBean, Serializable {
 
     public static final Map<String, Semaphore> URL_LIMIT_MAP = new ConcurrentHashMap<>();
 
-    private static final Integer DEFAULT_LIMIT = 3;
+    private static final Integer DEFAULT_LIMIT = 1;
 
     private static final String LIMIT_URL_CONF = "limit_url_conf";
 
@@ -33,27 +31,30 @@ public class SemaphoreRateLimit implements InitializingBean, Serializable {
 
     public Boolean acquire(String url) {
         if (StringUtils.isBlank(url)) return Boolean.FALSE;
+
+        if (notInConfLimit(url)) return Boolean.TRUE;
+
         Semaphore semaphore = URL_LIMIT_MAP.get(url);
         if (Objects.isNull(semaphore)) {
             semaphore = new Semaphore(DEFAULT_LIMIT);
             URL_LIMIT_MAP.put(url, semaphore);
         }
         try {
-            if (semaphore.tryAcquire()) {
-
-                semaphore.acquire(1);
+            if (semaphore.tryAcquire(1, TimeUnit.SECONDS)) {
+                log.error(String.format("%s:%s semaphore acquire success", Thread.currentThread().getName(), url));
+                return Boolean.TRUE;
             } else {
-                return false;
+                return Boolean.FALSE;
             }
-            log.error(String.format("%s:%s semaphore acquire success", Thread.currentThread().getName(), url));
         } catch (InterruptedException e) {
             log.error(e.getMessage());
+            return Boolean.FALSE;
         }
-        return Boolean.TRUE;
     }
 
     public void release(String url) {
-        if (StringUtils.isBlank(url)) return;
+        if (StringUtils.isBlank(url) || notInConfLimit(url)) return;
+
         Semaphore semaphore = URL_LIMIT_MAP.get(url);
         if (Objects.isNull(semaphore)) {
             return;
@@ -72,6 +73,10 @@ public class SemaphoreRateLimit implements InitializingBean, Serializable {
         for (String confUrl : confVal.split(CommonConstant.COMMA)) {
             URL_LIMIT_MAP.put(confUrl, new Semaphore(DEFAULT_LIMIT));
         }
+    }
+
+    private boolean notInConfLimit(String url) {
+        return !URL_LIMIT_MAP.containsKey(url);
     }
 
 }
