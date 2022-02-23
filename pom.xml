@@ -6,6 +6,9 @@
     <modules>
         <module>basic</module>
         <module>jdk-l</module>
+        <module>common</module>
+        <module>consumer</module>
+        <module>provider</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
