@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    container_name: "superNginx"
+    image: nginx
+    volumes:
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/data:/data
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/www:/home/www
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/log/nginx:/var/log/nginx
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+#      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/html:/usr/share/nginx/html
+      - /Users/stone/Documents/learn/docker/volumeData/nginx/superNginx/templates:/etc/nginx/templates
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+    restart: always

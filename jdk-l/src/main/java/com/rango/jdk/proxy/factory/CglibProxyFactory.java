@@ -1,7 +1,7 @@
 package com.rango.jdk.proxy.factory;
 
-import com.fml.proxy.CommInvocationHandler;
-import com.fml.sdk.impl.SmsServiceImpl;
+import com.rango.jdk.proxy.CommInvocationHandler;
+import com.rango.jdk.sdk.impl.SmsServiceImpl;
 import net.sf.cglib.proxy.Enhancer;
 
 public class CglibProxyFactory {

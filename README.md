@@ -2,7 +2,7 @@
 
 想到啥写啥
 
-_Technology used:_
+#1 Tech used
 
     springboot 
     spring 
@@ -14,8 +14,7 @@ _Technology used:_
     redis 
     EasyExcel
 
-_Wheel:_
-
+#2 Wheel
 **DistributeLock**:基于zk实现的分布式锁
 
 **ZkMessageCenter/ZkMessageListener**:基于zk实现的分布式消息广播

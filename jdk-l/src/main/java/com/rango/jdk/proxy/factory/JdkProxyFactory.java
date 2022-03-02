@@ -1,6 +1,6 @@
 package com.rango.jdk.proxy.factory;
 
-import com.fml.proxy.CommInvocationHandler;
+import com.rango.jdk.proxy.CommInvocationHandler;
 
 import java.lang.reflect.Proxy;
 
