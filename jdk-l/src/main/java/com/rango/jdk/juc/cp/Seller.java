@@ -1,4 +1,4 @@
-package com.rango.jdk.cp;
+package com.rango.jdk.juc.cp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
