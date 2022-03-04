@@ -7,7 +7,7 @@ public class VolatileTest {
         A a = new A();
         a.start();
         for (; ; ) {
-            //main线程对于A线程的改变不可见，加锁会清除main线程上的变量副本，重新从主内存读取
+            //main线程对于A线程的改变不可见，加锁(优化变量为volatile)会清除main线程上的变量副本，重新从主内存读取
 //            synchronized (a) {
                 if (a.isFlag()) {
                     try {
